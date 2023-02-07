@@ -1,11 +1,25 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th = "http://www.thymeleaf.prg">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
 </head>
 <body>
 <h1>HELLO MY FIRST SPRING BOOT APP</h1>
-<a href="/about">ABOUT PAGE</a>
+<a th:href="@{'/about'}">ABOUT PAGE</a>
+
+<h1>
+    <strong th:text="${superTovar.name}"></strong>
+    for <strong th:text="${superTovar.price}"></strong>
+    <strong th:text="${superTovar.amount}"></strong> left
+</h1>
+<!-- for (Item tov : items) {  +  ArrayList <Item> items = (ArrayList <Item> request.getAttribute("tovary"); + if(items!=){-->
+<div th:each="tov: ${tovary}">
+    Item <span th:text="${tov.name}"></span>
+    for <span th:text="${tov.price}"></span> KZT
+    <span th:text="${tov.amount}"></span> left
+<!--  ${} - означает сокращенный вариант request.getAttribute - а
+еще проверенный на if -->
+</div>
 </body>
 </html>
