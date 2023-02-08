@@ -13,6 +13,15 @@
     for <strong th:text="${superTovar.price}"></strong>
     <strong th:text="${superTovar.amount}"></strong> left
 </h1>
+
+<form th:action="@{'/add-item'}" method="post">
+    NAME: <input type="text" name="item_name">
+    PRICE: <input type="number" name="item_price">
+    AMOUNT: <input type="number" name="item_amount">
+    <button>ADD ITEM</button>
+</form>
+
+
 <!-- for (Item tov : items) {  +  ArrayList <Item> items = (ArrayList <Item> request.getAttribute("tovary"); + if(items!=){-->
 <div th:each="tov: ${tovary}">
     Item <span th:text="${tov.name}"></span>
@@ -21,5 +30,6 @@
 <!--  ${} - означает сокращенный вариант request.getAttribute - а
 еще проверенный на if -->
 </div>
+
 </body>
 </html>

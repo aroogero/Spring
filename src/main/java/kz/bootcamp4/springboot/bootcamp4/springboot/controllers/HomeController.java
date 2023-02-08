@@ -5,6 +5,8 @@ import kz.bootcamp4.springboot.bootcamp4.springboot.db.Item;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.ArrayList;
 
@@ -25,7 +27,18 @@ public class HomeController { //вот и весь наш сервлет
     //Например если хотим создать новую страницу создать, не надо новый Controller, Servlet создавать
 //1 метод в контроллере это и есть ссылка. Как один целый сервлет. Он так и работает
     @GetMapping(value = "/about")
-    public String about() {
+    public String about() { //пишем что возвращает String
         return "about";
+    }
+    @PostMapping(value="/add-item")
+    public String addItem(@RequestParam(name="item_name") String name, //это то же, что и String name = request.getParameter("item_name");
+    @RequestParam(name="item_price") double price,  //Не надо парсировать в дабл, так как RequestParam сам сделает так чтобы мы получили то что нам надо
+    @RequestParam(name="item_amount") int amount){   //Эти параметры, они же аргументы метода, Значит они мне доступны
+        Item item = new Item();
+        item.setName(name);
+        item.setPrice(price);
+        item.setAmount(amount);
+        DBManager.addItem(item);
+        return "redirect:/";   //response.sendRedirect("/");
     }
 }
