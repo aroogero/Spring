@@ -22,7 +22,7 @@ public class HomeController { //вот и весь наш сервлет
         Item best = new Item(777l,"Iphone 20", 1, 5000000);
         model.addAttribute("superTovar", best);
 
-        return "indexpage";   //это одно и то же - что request.getDispatcher("/indexpage.html").forward(request,response);
+        return "indexPage";   //это одно и то же - что request.getDispatcher("/indexPage.html").forward(request,response);
     }
     //Например если хотим создать новую страницу создать, не надо новый Controller, Servlet создавать
 //1 метод в контроллере это и есть ссылка. Как один целый сервлет. Он так и работает
