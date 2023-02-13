@@ -1,5 +1,8 @@
 package kz.bootcamp4.springboot.bootcamp4.springboot.controllers;
 
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import kz.bootcamp4.springboot.bootcamp4.springboot.db.DBManager;
 import kz.bootcamp4.springboot.bootcamp4.springboot.db.Item;
 import org.springframework.stereotype.Controller;
@@ -36,5 +39,24 @@ public class HomeController {
         item.setAmount(amount);
         DBManager.addItem(item);
         return "redirect:/";
+    }
+    @PostMapping(value="/add-item-v2")
+    public void test(HttpServletRequest request, HttpServletResponse response) {
+        String name = request.getParameter("item_name");
+        double price = Double.parseDouble(request.getParameter("item_price"));
+        int amount = Integer.parseInt(request.getParameter("item_amount"));
+
+        Item item = Item.builder()
+                .name(name)
+                .price(price)
+                .amount(amount)
+                .build();
+        DBManager.addItem(item);
+        try {
+            response.sendRedirect("/");
+        } catch (Exception e ) {
+            e.printStackTrace();
+        }
+
     }
 }
