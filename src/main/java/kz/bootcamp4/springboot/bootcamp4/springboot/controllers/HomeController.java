@@ -57,6 +57,11 @@ public class HomeController {
         } catch (Exception e ) {
             e.printStackTrace();
         }
+    }
 
+    @GetMapping(value="/details")
+    public String details(@RequestParam(name="id") Long id, Model model) {
+        model.addAttribute("tovar", DBManager.getItem(id));
+        return "details";
     }
 }

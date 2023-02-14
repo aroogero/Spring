@@ -21,4 +21,10 @@ public class DBManager {
     public static ArrayList<Item> getItems() {
         return items;
     }
+    public static Item getItem(Long id) {
+        return items.stream()
+                .filter(item -> item.getId().equals(id))
+                .findFirst()
+                .orElse(null);
+    }
 }

@@ -9,7 +9,7 @@
 <div class="container">
     <div class="row mt-3">
         <div class="col-6 mx-auto">
-            <form th:action="@{'/add-item-v2'}" method="post">
+            <form th:action="@{'/add-item'}" method="post">
                 <div class="row mt-3">
                     <div class="col-12">
                         <label>NAME : </label>
@@ -74,7 +74,7 @@
                     <td th:text="${tov.price}"></td>
                     <td th:text="${tov.amount}"></td>
                     <td>
-                        <a href="#" class="btn btn-primary btn-sm">DETAILS</a>
+                        <a th:href="@{'/details?id=' + ${tov.id}}" class="btn btn-primary btn-sm">DETAILS</a>
                     </td>
                 </tr>
                 </tbody>
