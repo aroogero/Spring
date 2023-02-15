@@ -21,7 +21,13 @@ public class HomeController {
 
         ArrayList<Item> items = DBManager.getItems();
         model.addAttribute("tovary", items);
-        Item best = new Item(777l,"Iphone 20", 1, 5000000);
+
+        Item best = Item.builder()
+                .name("Iphone 20")
+                .price(5000000)
+                .amount(1)
+                .build();
+
         model.addAttribute("superTovar", best);
 
         return "indexPage";
@@ -65,8 +71,10 @@ public class HomeController {
         model.addAttribute("tovar", DBManager.getItem(id));
         return "details";
     }
-    @GetMapping(value="/details/{id}")
-    public String detailsView(@PathVariable(name="id") Long id, Model model) {
+    @GetMapping(value="/details/{id}/{link}.html")
+    public String detailsView(@PathVariable(name="id") Long id,
+                              @PathVariable(name="link") String link, //Этот link в этом случае никакую роль не играет. Мы все равно по id будем считывать
+                              Model model) {
         model.addAttribute("tovar", DBManager.getItem(id));
         return "details";
     }

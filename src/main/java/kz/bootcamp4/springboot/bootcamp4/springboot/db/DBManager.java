@@ -7,14 +7,41 @@ public class DBManager {
     private static Long id = 5L;
 
     static {
-        items.add(new Item(1L, "Iphone 13", 20, 550000));
-        items.add(new Item(2L, "Iphone 14", 30, 650000));
-        items.add(new Item(3L, "Iphone 12", 40, 450000));
-        items.add(new Item(4L, "Iphone 11", 50, 350000));
+        items.add(Item.builder()
+                .id(1L)
+                .name("Iphone 13")
+                .price(500000)
+                .amount(30)
+                .link("iphone-13")
+                .build());
+        items.add(Item.builder()
+                .id(2L)
+                .name("Iphone 14")
+                .price(400000)
+                .amount(40)
+                .link("iphone-14")
+                .build());
+        items.add(Item.builder()
+                .id(3L)
+                .name("Iphone 12")
+                .price(300000)
+                .link("iphone-12")
+                .amount(20)
+                .build());
+        items.add(Item.builder()
+                .id(4L)
+                .name("Iphone 11")
+                .link("iphone-11")
+                .price(200000)
+                .amount(10)
+                .build());
     }
     public static void addItem(Item item) {
         item.setId(id);
         items.add(item);
+        String link = item.getName().toLowerCase(); //опускает заглавные буквы в нижний регистр
+        link = link.replace(' ', '-').replace('.','-'); //перезаписываем и все пробелы и точки заменяем на -
+        item.setLink(link); //и сохраняем
         id++;
     }
 
