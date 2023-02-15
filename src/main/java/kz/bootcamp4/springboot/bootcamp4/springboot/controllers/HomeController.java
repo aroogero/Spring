@@ -47,6 +47,11 @@ public class HomeController {
         DBManager.addItem(item);
         return "redirect:/";
     }
+    @PostMapping(value="/add-item-v3")
+    public String addItemByObject(Item item){ //здесь можно считывать не по RequestParam-ам, а целиком указать Item item
+        DBManager.addItem(item);
+        return "redirect:/";
+    }
     @PostMapping(value="/add-item-v2")
     public void test(HttpServletRequest request, HttpServletResponse response) {
         String name = request.getParameter("item_name");
@@ -65,7 +70,6 @@ public class HomeController {
             e.printStackTrace();
         }
     }
-
     @GetMapping(value="/details")
     public String details(@RequestParam(name="id") Long id, Model model) {
         model.addAttribute("tovar", DBManager.getItem(id));
