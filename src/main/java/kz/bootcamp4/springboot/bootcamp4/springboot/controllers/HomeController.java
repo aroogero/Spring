@@ -8,6 +8,7 @@ import kz.bootcamp4.springboot.bootcamp4.springboot.db.Item;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -61,6 +62,11 @@ public class HomeController {
 
     @GetMapping(value="/details")
     public String details(@RequestParam(name="id") Long id, Model model) {
+        model.addAttribute("tovar", DBManager.getItem(id));
+        return "details";
+    }
+    @GetMapping(value="/details/{id}")
+    public String detailsView(@PathVariable(name="id") Long id, Model model) {
         model.addAttribute("tovar", DBManager.getItem(id));
         return "details";
     }
