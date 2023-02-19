@@ -1,6 +1,5 @@
 package kz.bootcamp4.springboot.bootcamp4.springboot.controllers;
 
-import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import kz.bootcamp4.springboot.bootcamp4.springboot.db.DBManager;
