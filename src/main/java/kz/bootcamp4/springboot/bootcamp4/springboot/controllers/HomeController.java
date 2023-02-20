@@ -37,8 +37,8 @@ public class HomeController {
     }
     @PostMapping(value="/add-item")
     public String addItem(@RequestParam(name="item_name") String name,
-    @RequestParam(name="item_price") double price,
-    @RequestParam(name="item_amount") int amount){
+                          @RequestParam(name="item_price") double price,
+                          @RequestParam(name="item_amount") int amount){
         Item item = new Item();
         item.setName(name);
         item.setPrice(price);
@@ -46,10 +46,15 @@ public class HomeController {
         DBManager.addItem(item);
         return "redirect:/";
     }
+
+    @GetMapping(value="/additem")
+    public String addItem(Model model) {
+        return "addItem";
+    }
     @PostMapping(value="/add-item-v3")
     public String addItemByObject(Item item){ //здесь можно считывать не по RequestParam-ам, а целиком указать Item item
         DBManager.addItem(item);
-        return "redirect:/";
+        return "redirect:/additem?success";
     }
     @PostMapping(value="/add-item-v2")
     public void test(HttpServletRequest request, HttpServletResponse response) {

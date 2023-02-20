@@ -1,13 +1,8 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th = "http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-    <link rel="stylesheet" type="text/css" th:href="@{'/css/bootstrap.css'}">
-</head>
-<body>
-<div class="container">
-    <div class="row mt-3">
+<html lang="en" xmlns:th = "http://www.thymeleaf.org"
+      xmlns:layout = "http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="main_layout.html"> <!-- Кого будет слушаться, от кого буду отрисовываться -->
+<div layout:fragment="mainContent">
+    <div class="row">
         <div class="col-6 mx-auto">
             <form th:action="@{'/add-item-v3'}" method="post">
                 <div class="row mt-3">
@@ -15,73 +10,67 @@
                         <label>NAME : </label>
                     </div>
                 </div>
-                <div class="row">
-                    <div class="col-12 mt-2">
-                        <input type="text" class="form-control" name="name">
+                    <div class="row mt-2">
+                        <div class="col-12">
+                            <input type="text" class="form-control" name="name">
+                        </div>
+                        </div>
+                    <div class="row mt-3">
+                        <div class="col-12">
+                            <label>PRICE : </label>
+                        </div>
                     </div>
-                </div>
-                <div class="row">
-                    <div class="col-12 mt-3">
-                        <label>PRICE : </label>
+                    <div class="row mt-2">
+                        <div class="col-12">
+                            <input type="number" class="form-control" name="price">
+                        </div>
                     </div>
-                </div>
-                <div class="row">
-                    <div class="col-12 mt-2">
-                        <input type="number" class="form-control" name="price">
+                    <div class="row mt-3">
+                        <div class="col-12">
+                            <label>AMOUNT : </label>
+                        </div>
                     </div>
-                </div>
-                <div class="row">
-                    <div class="col-12 mt-3">
-                        <label>AMOUNT : </label>
+                    <div class="row mt-2">
+                        <div class="col-12">
+                            <input type="number" class="form-control" name="amount">
+                        </div>
                     </div>
-                </div>
-                <div class="row">
-                    <div class="col-12 mt-2">
-                        <input type="number" class="form-control" name="amount">
+                    <div class="row mt-3">
+                        <div class="col-12">
+                            <button class="btn btn-success ">ADD ITEM</button>
+                        </div>
                     </div>
-                </div>
-                <div class="row">
-                    <div class="col-12 mt-3">
-                        <button class="btn btn-success ">ADD ITEM</button>
-                    </div>
-                </div>
             </form>
         </div>
     </div>
-</div>
-
-<div class="container">
-    <div class="row mt-3">
-        <div class="col-12">
-            <table class="table table-striped">
-                <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>NAME</th>
-                    <th>PRICE</th>
-                    <th>AMOUNT</th>
-                    <!--Чтобы details колонка меньше мест занимал-->
-                    <th style="width:10%;">DETAILS</th>
-                </tr>
-                </thead>
-                <tbody>
-                <!-- for (Item tov : items) {  +  ArrayList <Item> items = (ArrayList <Item> request.getAttribute("tovary"); + if(items!=){-->
-                <!--  ${} - означает сокращенный вариант request.getAttribute - а
-    еще проверенный на if -->
-                <tr th:each="tov: ${tovary}">
-                    <td th:text="${tov.id}"></td>
-                    <td th:text="${tov.name}"></td>
-                    <td th:text="${tov.price}"></td>
-                    <td th:text="${tov.amount}"></td>
-                    <td>
-                        <a th:href="@{'/details/' + ${tov.id} + '/' + ${tov.link} + '.html'}" class="btn btn-primary btn-sm">DETAILS</a>
-                    </td>
-                </tr>
-                </tbody>
-            </table>
+        <div class="container">
+            <div class="row mt-3">
+                <div class="col-12">
+                    <table class="table table-striped">
+                        <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>NAME</th>
+                            <th>PRICE</th>
+                            <th>AMOUNT</th>
+                            <th style="width:10%;">DETAILS</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="tov: ${tovary}">
+                            <td th:text="${tov.id}"></td>
+                            <td th:text="${tov.name}"></td>
+                            <td th:text="${tov.price}"></td>
+                            <td th:text="${tov.amount}"></td>
+                            <td>
+                                <a th:href="@{'/details/' + ${tov.id} + '/' + ${tov.link} + '.html'}" class="btn btn-primary btn-sm">DETAILS</a>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
         </div>
     </div>
 </div>
-<script type="text/javascript" th:src="@{'/js/bootstrap.bundle.js'}"></script>
-</body>
 </html>
