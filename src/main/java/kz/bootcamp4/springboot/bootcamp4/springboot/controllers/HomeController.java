@@ -2,8 +2,10 @@ package kz.bootcamp4.springboot.bootcamp4.springboot.controllers;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import kz.bootcamp4.springboot.bootcamp4.springboot.beans.FirstBean;
 import kz.bootcamp4.springboot.bootcamp4.springboot.db.DBManager;
 import kz.bootcamp4.springboot.bootcamp4.springboot.db.Item;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,8 +17,12 @@ import java.util.ArrayList;
 
 @Controller
 public class HomeController {
+
+    @Autowired
+    private FirstBean firstBean;
     @GetMapping(value = "/")
     public String index(Model model) {
+        System.out.println(firstBean.getData());
 
         ArrayList<Item> items = DBManager.getItems();
         model.addAttribute("tovary", items);
@@ -31,9 +37,11 @@ public class HomeController {
 
         return "indexPage";
     }
-    @GetMapping(value = "/about")
-    public String about() {
-        return "about";
+    @GetMapping(value = "/changeData")
+    public String changeData() {
+       firstBean.setName("Almas"); //Внимание! Внимание! Внимание! Как у нас объект называется? Строка 22
+        firstBean.setValue(44);
+        return "redirect:/";
     }
     @PostMapping(value="/add-item")
     public String addItem(@RequestParam(name="item_name") String name,
