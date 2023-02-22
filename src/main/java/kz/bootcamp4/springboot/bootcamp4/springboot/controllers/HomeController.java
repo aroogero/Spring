@@ -8,10 +8,7 @@ import kz.bootcamp4.springboot.bootcamp4.springboot.db.Item;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 
@@ -41,6 +38,12 @@ public class HomeController {
     public String changeData() {
        firstBean.setName("Almas"); //Внимание! Внимание! Внимание! Как у нас объект называется? Строка 22
         firstBean.setValue(44);
+        return "redirect:/";
+    }
+    @GetMapping(value="/refreshData")
+    public String refreshData() {
+        firstBean.setName("Iliyas");
+        firstBean.setValue(7);
         return "redirect:/";
     }
     @PostMapping(value="/add-item")
