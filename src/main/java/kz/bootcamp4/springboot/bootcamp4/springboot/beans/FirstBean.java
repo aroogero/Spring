@@ -6,7 +6,7 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 @Component
-@Scope(value = "prototype")
+@Scope(value = "singleton")
 @Getter
 @Setter
 public class FirstBean {
