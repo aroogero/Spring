@@ -2,9 +2,11 @@ package kz.bootcamp4.springboot.bootcamp4.springboot.beans;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 @Component
+@Scope(value = "request")
 @Getter
 @Setter
 public class FirstBean {
