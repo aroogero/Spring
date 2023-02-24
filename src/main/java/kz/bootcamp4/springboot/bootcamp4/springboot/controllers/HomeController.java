@@ -97,14 +97,14 @@ public class HomeController {
     }
     @GetMapping(value="/details")
     public String details(@RequestParam(name="id") Long id, Model model) {
-        model.addAttribute("tovar", DBManager.getItem(id));
+        model.addAttribute("tovar", dbUtil.getItem(id));
         return "details";
     }
     @GetMapping(value="/details/{id}/{link}.html")
     public String detailsView(@PathVariable(name="id") Long id,
                               @PathVariable(name="link") String link, //Этот link в этом случае никакую роль не играет. Мы все равно по id будем считывать
                               Model model) {
-        model.addAttribute("tovar", DBManager.getItem(id));
+        model.addAttribute("tovar", dbUtil.getItem(id));
         return "details";
     }
 }

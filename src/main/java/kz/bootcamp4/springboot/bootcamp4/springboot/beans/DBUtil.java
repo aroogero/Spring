@@ -41,4 +41,45 @@ public class DBUtil {
         }
         return items;
     }
+
+    public Item getItem(Long id) {
+        Item item = null;
+        try{
+            PreparedStatement statement = connection.prepareStatement(""+
+                    "SELECT * FROM item WHERE id = ?");
+            statement.setLong(1,id);
+            ResultSet resultSet = statement.executeQuery();
+            if(resultSet.next()){
+                item = new Item();
+                item.setId(resultSet.getLong("id"));
+                item.setName(resultSet.getString("name"));
+                item.setPrice(resultSet.getDouble("price"));
+                item.setAmount(resultSet.getInt("amount"));
+            }
+            statement.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return item;
+    }
+    //можно объект создать еще вначале, прикол в том, что первый вариант был для того чтобы если он не найдет этого объекта он не будет нулл. Типа он себе флаг сделал
+    public Item getItem2(Long id) {
+        Item item = new Item();
+        try{
+            PreparedStatement statement = connection.prepareStatement(""+
+                    "SELECT * FROM item WHERE id = ?");
+            statement.setLong(1,id);
+            ResultSet resultSet = statement.executeQuery();
+            if(resultSet.next()){
+                item.setId(resultSet.getLong("id"));
+                item.setName(resultSet.getString("name"));
+                item.setPrice(resultSet.getDouble("price"));
+                item.setAmount(resultSet.getInt("amount"));
+            }
+            statement.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return item;
+    }
 }
