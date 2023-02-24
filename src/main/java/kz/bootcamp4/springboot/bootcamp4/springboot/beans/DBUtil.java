@@ -62,24 +62,19 @@ public class DBUtil {
         }
         return item;
     }
-    //можно объект создать еще вначале, прикол в том, что первый вариант был для того чтобы если он не найдет этого объекта он не будет нулл. Типа он себе флаг сделал
-    public Item getItem2(Long id) {
-        Item item = new Item();
-        try{
+
+    public void addItem(Item item){
+        try {
             PreparedStatement statement = connection.prepareStatement(""+
-                    "SELECT * FROM item WHERE id = ?");
-            statement.setLong(1,id);
-            ResultSet resultSet = statement.executeQuery();
-            if(resultSet.next()){
-                item.setId(resultSet.getLong("id"));
-                item.setName(resultSet.getString("name"));
-                item.setPrice(resultSet.getDouble("price"));
-                item.setAmount(resultSet.getInt("amount"));
-            }
+                    "INSERT INTO item (name, price, amount)" +
+                    "VALUES (?, ? ,?)");
+            statement.setString(1, item.getName());
+            statement.setDouble(2, item.getPrice());
+            statement.setInt(3, item.getAmount());
+            statement.executeUpdate();
             statement.close();
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return item;
     }
 }

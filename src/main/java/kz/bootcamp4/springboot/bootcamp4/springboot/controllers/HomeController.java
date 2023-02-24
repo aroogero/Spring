@@ -2,10 +2,8 @@ package kz.bootcamp4.springboot.bootcamp4.springboot.controllers;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import kz.bootcamp4.springboot.bootcamp4.springboot.beans.DBConnector;
 import kz.bootcamp4.springboot.bootcamp4.springboot.beans.DBUtil;
 import kz.bootcamp4.springboot.bootcamp4.springboot.beans.FirstBean;
-import kz.bootcamp4.springboot.bootcamp4.springboot.db.DBManager;
 import kz.bootcamp4.springboot.bootcamp4.springboot.db.Item;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -64,7 +62,7 @@ public class HomeController {
         item.setName(name);
         item.setPrice(price);
         item.setAmount(amount);
-        DBManager.addItem(item);
+        dbUtil.addItem(item);
         return "redirect:/";
     }
 
@@ -74,7 +72,7 @@ public class HomeController {
     }
     @PostMapping(value="/add-item-v3")
     public String addItemByObject(Item item){ //здесь можно считывать не по RequestParam-ам, а целиком указать Item item
-        DBManager.addItem(item);
+        dbUtil.addItem(item);
         return "redirect:/additem?success";
     }
     @PostMapping(value="/add-item-v2")
@@ -88,7 +86,7 @@ public class HomeController {
                 .price(price)
                 .amount(amount)
                 .build();
-        DBManager.addItem(item);
+        dbUtil.addItem(item);
         try {
             response.sendRedirect("/");
         } catch (Exception e ) {
