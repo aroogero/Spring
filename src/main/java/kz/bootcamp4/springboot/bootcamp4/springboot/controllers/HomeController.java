@@ -3,6 +3,7 @@ package kz.bootcamp4.springboot.bootcamp4.springboot.controllers;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import kz.bootcamp4.springboot.bootcamp4.springboot.beans.DBConnector;
+import kz.bootcamp4.springboot.bootcamp4.springboot.beans.DBUtil;
 import kz.bootcamp4.springboot.bootcamp4.springboot.beans.FirstBean;
 import kz.bootcamp4.springboot.bootcamp4.springboot.db.DBManager;
 import kz.bootcamp4.springboot.bootcamp4.springboot.db.Item;
@@ -24,13 +25,13 @@ public class HomeController {
     private String siteName;
 
     @Autowired
-    private DBConnector dbConnector;
+    private DBUtil dbUtil;
 
     @GetMapping(value = "/")
     public String index(Model model) {
         System.out.println(firstBean.getData());
         System.out.println(siteName);
-        ArrayList<Item> items = dbConnector.getItems();
+        ArrayList<Item> items = dbUtil.getItems();
         model.addAttribute("tovary", items);
 
         Item best = Item.builder()

@@ -1,22 +1,20 @@
 package kz.bootcamp4.springboot.bootcamp4.springboot.beans;
 
 import kz.bootcamp4.springboot.bootcamp4.springboot.db.Item;
-import org.springframework.stereotype.Component;
 
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.util.ArrayList;
 
-@Component
-public class DBConnector {
-
+public class DBUtil {
     private Connection connection;
 
-    public DBConnector() {
+    public DBUtil(String url, String user, String password) {  //кастомный конструктор
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
-            //Этот метод не получился, так как сначала создается конструктор и потом подтягиваются значения с application properties
-            //connection = DriverManager.getConnection(dataBaseUrl, dataBaseUser, dataBasePassword);
-            connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/bootcamp4spring", "root", ""); //это временно
+            connection = DriverManager.getConnection(url, user, password);
         } catch (Exception e) {
             e.printStackTrace();
         }
