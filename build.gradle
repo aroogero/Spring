@@ -19,11 +19,13 @@ repositories {
 }
 
 dependencies {
+	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	implementation group: 'nz.net.ultraq.thymeleaf', name: 'thymeleaf-layout-dialect', version: '3.2.0'
 	compileOnly 'org.projectlombok:lombok'
-	implementation group: 'com.mysql', name: 'mysql-connector-j', version: '8.0.32' //если версию не писать, он автоматом будет использовать последнюю версию
+	//implementation group: 'com.mysql', name: 'mysql-connector-j', version: '8.0.32' //если версию не писать, он автоматом будет использовать последнюю версию
+	runtimeOnly 'com.mysql:mysql-connector-j' //runtimeOnly - будет использоваться только при запуске
 	annotationProcessor 'org.projectlombok:lombok'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 }
