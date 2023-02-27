@@ -6,7 +6,8 @@
   <div class="container">
     <div class="row mt-3">
       <div class="col-6 mx-auto">
-        <form th:if="${tovar!=null}">
+        <form th:if="${tovar!=null}" th:action="@{'/update-item'}" method="post">
+          <input type="hidden" name="id" th:value="${tovar.id}">
           <div class="row mt-3">
             <div class="col-12">
               <label>NAME : </label>
@@ -14,7 +15,7 @@
           </div>
           <div class="row">
             <div class="col-12 mt-2">
-              <input type="text" class="form-control" th:value="${tovar.name}">
+              <input type="text" class="form-control" th:value="${tovar.name}" name="name">
             </div>
           </div>
           <div class="row">
@@ -24,7 +25,7 @@
           </div>
           <div class="row">
             <div class="col-12 mt-2">
-              <input type="number" class="form-control" th:value="${tovar.price}">
+              <input type="number" class="form-control" th:value="${tovar.price}" name="price">
             </div>
           </div>
           <div class="row">
@@ -34,7 +35,7 @@
           </div>
           <div class="row">
             <div class="col-12 mt-2">
-              <input type="number" class="form-control" th:value="${tovar.amount}">
+              <input type="number" class="form-control" th:value="${tovar.amount}" name="amount">
             </div>
           </div>
           <div class="row mt-3">
@@ -45,7 +46,7 @@
           <div class="row mt-2">
             <div class="col-12">
               <textarea class="form-control"
-                        name="description" readonly th:text="${tovar.description}"></textarea>
+                        th:text="${tovar.description}" name="description"></textarea>
             </div>
           </div>
           <div class="row">

@@ -63,4 +63,19 @@ public class HomeController {
       model.addAttribute("tovar", shopItem);
         return "details";
     }
+
+    @PostMapping(value="/update-item")
+    public String updateItem(ShopItem item) {
+        ShopItem oldItem = itemRepository.findById(item.getId()).orElse(null); //если в форме мы ничего не передаем, значение будет пустым, поэтому id получаем отдельно
+        if(oldItem!=null) {
+            oldItem.setName(item.getName());
+            oldItem.setAmount(item.getAmount());
+            oldItem.setPrice(item.getPrice());
+            oldItem.setDescription(item.getDescription());
+            oldItem.setLink(item.getName().toLowerCase().replace(' ', '-'));
+            itemRepository.save(oldItem);
+            return "redirect:/details/" + item.getId() + "/" + item.getLink() + ".html";
+        }
+        return "redirect:/";
+    }
 }
