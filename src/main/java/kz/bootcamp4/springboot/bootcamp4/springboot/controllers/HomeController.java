@@ -74,8 +74,14 @@ public class HomeController {
             oldItem.setDescription(item.getDescription());
             oldItem.setLink(item.getName().toLowerCase().replace(' ', '-'));
             itemRepository.save(oldItem);
-            return "redirect:/details/" + item.getId() + "/" + item.getLink() + ".html";
+            return "redirect:/details/" + oldItem.getId() + "/" + oldItem.getLink() + ".html";
         }
         return "redirect:/";
+    }
+
+    @PostMapping(value="/delete-item")
+    public String deleteItem(@RequestParam(name = "id") Long id) {
+      itemRepository.deleteById(id);
+      return "redirect:/";
     }
 }
