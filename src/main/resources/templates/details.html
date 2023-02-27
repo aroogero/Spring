@@ -37,6 +37,17 @@
               <input type="number" class="form-control" th:value="${tovar.amount}">
             </div>
           </div>
+          <div class="row mt-3">
+            <div class="col-12">
+              <label>DESCRIPTION : </label>
+            </div>
+          </div>
+          <div class="row mt-2">
+            <div class="col-12">
+              <textarea class="form-control"
+                        name="description" readonly th:text="${tovar.description}"></textarea>
+            </div>
+          </div>
           <div class="row">
             <div class="col-12 mt-3">
               <button class="btn btn-success ">SAVE ITEM</button>
