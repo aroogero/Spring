@@ -29,25 +29,14 @@ public class HomeController {
         return "indexPage";
     }
 
-    @PostMapping(value="/add-item")
-    public String addItem(@RequestParam(name="item_name") String name,
-                          @RequestParam(name="item_price") double price,
-                          @RequestParam(name="item_amount") int amount){
-        Item item = new Item();
-        item.setName(name);
-        item.setPrice(price);
-        item.setAmount(amount);
-        //dbUtil.addItem(item);
-        return "redirect:/";
-    }
-
     @GetMapping(value="/additem")
     public String addItem(Model model) {
         return "addItem";
     }
     @PostMapping(value="/add-item-v3")
-    public String addItemByObject(Item item){ //здесь можно считывать не по RequestParam-ам, а целиком указать Item item
-       // dbUtil.addItem(item);
+    public String addItemByObject(ShopItem item){
+        item.setLink(item.getName().toLowerCase().replace(' ', '-'));
+        itemRepository.save(item);
         return "redirect:/additem?success";
     }
     @PostMapping(value="/add-item-v2")
