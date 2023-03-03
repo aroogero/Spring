@@ -14,7 +14,9 @@
         </li>
       </ul>
       <form class="d-flex" role="search" th:action="@{'/search'}">
-        <input class="form-control me-2" type="search" placeholder="Search" name="key">
+        <input class="form-control me-2" type="search"
+               th:value="${param.key!=null?param.key:''}"
+               placeholder="Search"  name="key">
         <button class="btn btn-outline-light" >Search</button>
       </form>
     </div>

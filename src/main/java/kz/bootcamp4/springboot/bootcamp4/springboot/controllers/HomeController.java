@@ -88,6 +88,6 @@ public class HomeController {
                          Model model){
         List<ShopItem> items = itemRepository.findAllByNameContaining(key.toLowerCase());
         model.addAttribute("tovary", items);
-        return "indexPage";
+        return "search";
     }
 }

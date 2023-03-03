@@ -10,5 +10,6 @@ import java.util.List;
 @Repository
 @Transactional //работает так, что каждая транзакция не будет скрещиваться с другой транзакцией
 public interface ItemRepository extends JpaRepository<ShopItem, Long> {
-    List<ShopItem> findAllByNameContaining(String name);
+    List<ShopItem> findAllByNameContaining(String name); //по названию метода он делает поиск Select where like
+    //Метод который делает фильтр по нейму
 }

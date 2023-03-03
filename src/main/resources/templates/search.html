@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th = "http://www.thymeleaf.org"
+      xmlns:layout = "http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="main_layout.html"> <!-- Кого будет слушаться, от кого буду отрисовываться -->
+<div layout:fragment="mainContent">
+  <div class="container">
+    <div class="row mt-3">
+      <div class="col-12">
+        <form th:action="@{'/search'}" method="get">
+          <div class="row">
+            <div class="col-2">
+              <label>NAME : </label>
+              </div>
+            <div class="col-2">
+              <label>PRICE FROM: </label>
+            </div>
+            <div class="col-2">
+              <label>PRICE TO: </label>
+            </div>
+            <div class="col-2">
+              <label>AMOUNT FROM : </label>
+            </div>
+            <div class="col-2">
+              <label>AMOUNT TO: </label>
+            </div>
+          </div>
+          <div class="row mt-2">
+            <div class="col-2">
+              <input type="search" class="form-control" name="key" th:value="${param.key!=null?param.key:''}" placeholder="Search">
+            </div>
+          <div class="col-4">
+            <div class="row">
+              <div class="col-6">
+                <input type="number"
+                       th:value="${param.from_price!=null?param.from_price:''}"
+                       class="form-control" name="from_price">
+            </div>
+              <div class="col-6">
+                <input type="number"
+                       th:value="${param.to_price!=null?param.to_price:''}"
+                       class="form-control" name="to_price">
+              </div>
+            </div>
+          </div>
+            <div class="col-4">
+              <div class="row">
+                <div class="col-6">
+                  <input type="number"
+                         th:value="${param.from_amount!=null?param.from_amount:''}"
+                         class="form-control" name="from_amount">
+                </div>
+                <div class="col-6">
+                  <input type="number"
+                         th:value="${param.to_amount!=null?param.to_amount:''}"
+                         class="form-control" name="to_amount">
+                </div>
+              </div>
+            </div>
+          <div class="col-2">
+            <button class="btn btn-success">SEARCH</button>
+          </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  <div class="container">
+    <div class="row mt-3">
+      <div class="col-12">
+        <table class="table table-striped">
+          <thead>
+          <tr>
+            <th>ID</th>
+            <th>NAME</th>
+            <th>PRICE</th>
+            <th>AMOUNT</th>
+            <th>DESCRIPTION</th>
+            <th style="width:10%;">DETAILS</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr th:each="tov: ${tovary}">
+            <td th:text="${tov.id}"></td>
+            <td th:text="${tov.name}"></td>
+            <td th:text="${tov.price}"></td>
+            <td th:text="${tov.amount}"></td>
+            <td th:text="${tov.description}"></td>
+            <td>
+              <a th:href="@{'/details/' + ${tov.id} + '/' + ${tov.link} + '.html'}" class="btn btn-primary btn-sm">DETAILS</a>
+            </td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+</html>

@@ -12,7 +12,12 @@
                         <h6 class="card-subtitle mb-2 text-muted">Курс: </h6><h6 class="card-subtitle mb-2 text-muted" th:text="${apple.course}"></h6>
                         <p class="card-text" th:text="${apple.comment}"></p>
                         <div class="row">
-                            <p class="card-text" style="" th:text="${apple.phoneNumber}"></p><a href="/details">Подробнее</a>
+                            <div class="col-6">
+                                <p class="card-text" style="" th:text="${apple.phoneNumber}"></p>
+                            </div>
+                            <div class="col-6">
+                            <a href="/details">Подробнее</a>
+                            </div>
                         </div>
                     </div>
                 </div>
