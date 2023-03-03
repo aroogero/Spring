@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th = "http://www.thymeleaf.org"
+      xmlns:layout = "http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="main_layout_L6t1.html"> <!-- Кого будет слушаться, от кого буду отрисовываться -->
+<div layout:fragment="mainContent_L6t1">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-7">
+                <div class="card mt-3" th:each="apple:${applications}">
+                    <div class="card-body">
+                        <h5 th:if="${apple.handled==false}" style="color: red">*(Новая)</h5><h5 class="card-title">Заявка от </h5><h5 th:text="${apple.fullName}"></h5>
+                        <h6 class="card-subtitle mb-2 text-muted">Курс: </h6><h6 class="card-subtitle mb-2 text-muted" th:text="${apple.course}"></h6>
+                        <p class="card-text" th:text="${apple.comment}"></p>
+                        <div class="row">
+                            <p class="card-text" style="" th:text="${apple.phoneNumber}"></p><a href="/details">Подробнее</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</html>

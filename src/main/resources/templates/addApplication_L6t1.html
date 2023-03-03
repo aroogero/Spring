@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th = "http://www.thymeleaf.org"
+      xmlns:layout = "http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="main_layout_L6t1.html"> <!-- Кого будет слушаться, от кого буду отрисовываться -->
+<div layout:fragment="mainContent_L6t1">
+  <div class="row">
+    <div class="col-6 mx-auto">
+      <!-- У таймлифа есть доступ к RequestParam - называется th:if = “${param.success!=null}” param - это зарезервированное слово -->
+     <div class="alert alert-success alert-dismissible fade show" role="alert" th:if = "${param.success!=null}">
+        Application added successfully!
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+      </div>
+      <form th:action="@{'/addApplication_L6t1'}" method="post">
+        <div class="row mt-3">
+          <div class="col-12">
+            <label>ФИО : </label>
+          </div>
+        </div>
+        <div class="row mt-2">
+          <div class="col-12">
+            <input type="text" class="form-control" name="fullName" placeholder="ФИО:">
+          </div>
+        </div>
+        <div class="row mt-3">
+          <div class="col-12">
+            <label>Курс : </label>
+          </div>
+        </div>
+        <div class="row mt-2">
+          <div class="col-12">
+            <select>
+              <option type="number" class="form-control" name="course" th:each="courseName:${courses}" th:value="${courseName.course}" th:text="${courseName.course}"></option>
+            </select>
+          </div>
+        </div>
+        <input type="hidden" name="handled" th:value="${false}">
+        <div class="row mt-3">
+          <div class="col-12">
+            <label>Телефон : </label>
+          </div>
+        </div>
+        <div class="row mt-2">
+          <div class="col-12">
+            <input type="text" class="form-control" name="phoneNumber" placeholder="+7(7__)_______">
+          </div>
+        </div>
+        <div class="row mt-3">
+          <div class="col-12">
+            <label>Комментарии : </label>
+          </div>
+        </div>
+        <div class="row mt-2">
+          <div class="col-12">
+            <textarea class="form-control" name="comment" required placeholder="Комментарии"></textarea>
+          </div>
+        </div>
+        <div class="row mt-3">
+          <div class="col-12">
+            <button class="btn btn-success ">Добавить заявку</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+</div>
+</html>
