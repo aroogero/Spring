@@ -84,10 +84,22 @@ public class HomeController {
     }
 
     @GetMapping(value="/search")
-    public String search(@RequestParam (name = "key") String key,
+    public String search(@RequestParam (name = "key", required = false, defaultValue = "") String key, //defaultValue - требует String, requestParam конвертирует в нужный параметр
+                         @RequestParam(name = "from_price", required = false, defaultValue = "0") double fromPrice,
+                         @RequestParam(name = "to_price", required = false, defaultValue = Double.MAX_VALUE+"") double toPrice,
+                         @RequestParam(name = "from_amount", required = false, defaultValue = "0") int fromAmount,
+                         @RequestParam(name = "to_amount", required = false, defaultValue = Integer.MAX_VALUE+"") int toAmount,
                          Model model){
-        List<ShopItem> items = itemRepository.findAllByNameContaining(key.toLowerCase());
+        List<ShopItem> items =
+                itemRepository.findAllByNameContainingAndPriceBetweenAndAmountBetweenOrderByPriceDesc(
+                        key.toLowerCase(),
+                        fromPrice,
+                        toPrice,
+                        fromAmount,
+                        toAmount
+                );
         model.addAttribute("tovary", items);
+
         return "search";
     }
 }

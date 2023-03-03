@@ -11,5 +11,7 @@ import java.util.List;
 @Transactional //работает так, что каждая транзакция не будет скрещиваться с другой транзакцией
 public interface ItemRepository extends JpaRepository<ShopItem, Long> {
     List<ShopItem> findAllByNameContaining(String name); //по названию метода он делает поиск Select where like
-    //Метод который делает фильтр по нейму
+    List<ShopItem> findAllByNameContainingAndPriceBetweenAndAmountBetweenOrderByPriceDesc(
+            String name, double fromPrice, double toPrice, int fromAmount, int toAmount
+    ); //очень крутая технология - максимальное абстрагирование. Спринг Дата сам за нас сделает
 }
