@@ -92,7 +92,7 @@ public class HomeController {
                          Model model){
         List<ShopItem> items =
                 itemRepository.poisk(
-                        "%"+key.toLowerCase()+"%",
+                        "%"+key.toLowerCase()+"%", //% мне все равно как начинается/как заканчивается
                         fromPrice,
                         toPrice,
                         fromAmount,

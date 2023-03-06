@@ -21,8 +21,8 @@ public interface ItemRepository extends JpaRepository<ShopItem, Long> {
     @Query(value = "" +    //гибрид SQL-a и ORM-a - пишем запрос средний между этими двумя - указываем сущность
             "SELECT it FROM ShopItem it " +
             "WHERE it.name LIKE :nazvanie " +
-            "AND it.price BETWEEN :otCena AND :doCena " +
-            "AND it.amount BETWEEN :otKolvo AND :doKolvo " +
+            "AND it.price >= :otCena AND it.price <= :doCena " +
+            "AND it.amount >= :otKolvo AND it.amount <= :doKolvo " +
             "ORDER BY it.price DESC")
     List<ShopItem> poisk(
             @Param("nazvanie") String name, //как RequestParam
