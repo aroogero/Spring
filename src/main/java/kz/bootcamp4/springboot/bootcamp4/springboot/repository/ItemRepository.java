@@ -31,5 +31,8 @@ public interface ItemRepository extends JpaRepository<ShopItem, Long> {
             @Param("otKolvo") int fromAmount,
             @Param("doKolvo") int toAmount
     );
+
+    @Query(value = "SELECT SUM(it.price) FROM ShopItem it") //запрос в SQL
+    double sumOfPrices();  //возвращает сумму всех
 }
 

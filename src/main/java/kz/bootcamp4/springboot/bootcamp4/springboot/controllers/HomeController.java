@@ -22,6 +22,8 @@ public class HomeController {
 
         List<ShopItem> items = itemRepository.findAll();//List - это интерфейс ArrayList-а, более абстрактная версия
          model.addAttribute("tovary", items);
+        model.addAttribute("total", itemRepository.sumOfPrices());
+
         return "indexPage";
     }
 
