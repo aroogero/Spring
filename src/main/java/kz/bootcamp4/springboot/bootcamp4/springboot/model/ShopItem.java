@@ -32,5 +32,8 @@ public class ShopItem {  //а в нашем классе он будет наз�
     @Column(name = "item_link")
     private String link;
 
+    @ManyToOne  //мы говорим внутри тебя будет объект manufacturer
+    private Manufacturer manufacturer; //обязательно должен быть сущностью тэйблом
 
+    //и в homecontroller-e когда делаем findAll - ShopItem в упакованном виде приходит
 }

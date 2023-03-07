@@ -17,7 +17,7 @@
                             <th>NAME</th>
                             <th>PRICE</th>
                             <th>AMOUNT</th>
-                            <th>DESCRIPTION</th>
+                            <th>MANUFACTURER</th>
                             <th style="width:10%;">DETAILS</th>
                         </tr>
                         </thead>
@@ -27,7 +27,7 @@
                             <td th:text="${tov.name}"></td>
                             <td th:text="${tov.price}"></td>
                             <td th:text="${tov.amount}"></td>
-                            <td th:text="${tov.description}"></td>
+                            <td th:text="${tov.manufacturer.name + ' - ' + tov.manufacturer.country}"></td>
                             <td>
                                 <a th:href="@{'/details/' + ${tov.id} + '/' + ${tov.link} + '.html'}" class="btn btn-primary btn-sm">DETAILS</a>
                             </td>
