@@ -82,6 +82,8 @@ public class HomeController {
             oldItem.setPrice(item.getPrice());
             oldItem.setDescription(item.getDescription());
             oldItem.setLink(item.getName().toLowerCase().replace(' ', '-'));
+            oldItem.setManufacturer(item.getManufacturer()); //он сам по id подгонит
+            //мы могли все это через save сделать, но написали ради link-a - чтобы переписать ее
             itemRepository.save(oldItem);
             return "redirect:/details/" + oldItem.getId() + "/" + oldItem.getLink() + ".html";
         }
