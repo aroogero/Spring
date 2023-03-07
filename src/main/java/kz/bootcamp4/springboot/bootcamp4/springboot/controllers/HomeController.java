@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+
 import java.util.List;
 
 @Controller
@@ -25,24 +26,25 @@ public class HomeController {
     public String index(Model model) {
 
         List<ShopItem> items = itemRepository.findAll();//List - это интерфейс ArrayList-а, более абстрактная версия
-         model.addAttribute("tovary", items);
+        model.addAttribute("tovary", items);
         model.addAttribute("total", itemRepository.sumOfPrices());
-
         return "indexPage";
     }
 
-    @GetMapping(value="/additem")
+    @GetMapping(value = "/additem")
     public String addItem(Model model) {
         model.addAttribute("manufacturers", manufacturerRepository.findAll());
         return "addItem";
     }
-    @PostMapping(value="/add-item-v3")
-    public String addItemByObject(ShopItem item){
+
+    @PostMapping(value = "/add-item-v3")
+    public String addItemByObject(ShopItem item) {
         item.setLink(item.getName().toLowerCase().replace(' ', '-'));
         itemRepository.save(item);
         return "redirect:/additem?success";
     }
-    @PostMapping(value="/add-item-v2")
+
+    @PostMapping(value = "/add-item-v2")
     public void test(HttpServletRequest request, HttpServletResponse response) {
         String name = request.getParameter("item_name");
         double price = Double.parseDouble(request.getParameter("item_price"));
@@ -56,23 +58,25 @@ public class HomeController {
         //dbUtil.addItem(item);
         try {
             response.sendRedirect("/");
-        } catch (Exception e ) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
-    @GetMapping(value="/details/{id}/{link}.html")
-    public String detailsView(@PathVariable(name="id") Long id,
-                              @PathVariable(name="link") String link, //Этот link в этом случае никакую роль не играет. Мы все равно по id будем считывать
+
+    @GetMapping(value = "/details/{id}/{link}.html")
+    public String detailsView(@PathVariable(name = "id") Long id,
+                              @PathVariable(name = "link") String link, //Этот link в этом случае никакую роль не играет. Мы все равно по id будем считывать
                               Model model) {
         ShopItem shopItem = itemRepository.findById(id).get();
-      model.addAttribute("tovar", shopItem);
+        model.addAttribute("tovar", shopItem);
+        model.addAttribute("manufacturers", manufacturerRepository.findAll());
         return "details";
     }
 
-    @PostMapping(value="/update-item")
+    @PostMapping(value = "/update-item")
     public String updateItem(ShopItem item) {
         ShopItem oldItem = itemRepository.findById(item.getId()).orElse(null); //если в форме мы ничего не передаем, значение будет пустым, поэтому id получаем отдельно
-        if(oldItem!=null) {
+        if (oldItem != null) {
             oldItem.setName(item.getName());
             oldItem.setAmount(item.getAmount());
             oldItem.setPrice(item.getPrice());
@@ -84,29 +88,31 @@ public class HomeController {
         return "redirect:/";
     }
 
-    @PostMapping(value="/delete-item")
+    @PostMapping(value = "/delete-item")
     public String deleteItem(@RequestParam(name = "id") Long id) {
-      itemRepository.deleteById(id);
-      return "redirect:/";
+        itemRepository.deleteById(id);
+        return "redirect:/";
     }
 
-    @GetMapping(value="/search")
-    public String search(@RequestParam (name = "key", required = false, defaultValue = "") String key, //defaultValue - требует String, requestParam конвертирует в нужный параметр
-                         @RequestParam(name = "from_price", required = false, defaultValue = "0") double fromPrice, //required и defaultValue - подстраховка, чтобы нам не выходила ошибка когда будем отправлять пустой запрос
-                         @RequestParam(name = "to_price", required = false, defaultValue = Double.MAX_VALUE+"") double toPrice,
-                         @RequestParam(name = "from_amount", required = false, defaultValue = "0") int fromAmount,
-                         @RequestParam(name = "to_amount", required = false, defaultValue = Integer.MAX_VALUE+"") int toAmount,
-                         Model model){
+    @GetMapping(value = "/search")
+    public String search(
+            @RequestParam(name = "key", required = false, defaultValue = "") String key, //defaultValue - требует String, requestParam конвертирует в нужный параметр
+            @RequestParam(name = "from_price", required = false, defaultValue = "0") double fromPrice, //required и defaultValue - подстраховка, чтобы нам не выходила ошибка когда будем отправлять пустой запрос
+            @RequestParam(name = "to_price", required = false, defaultValue = Double.MAX_VALUE + "") double toPrice,
+            @RequestParam(name = "from_amount", required = false, defaultValue = "0") int fromAmount,
+            @RequestParam(name = "to_amount", required = false, defaultValue = Integer.MAX_VALUE + "") int toAmount,
+            Model model
+    ) {
+
         List<ShopItem> items =
                 itemRepository.poisk(
-                        "%"+key.toLowerCase()+"%", //% мне все равно как начинается/как заканчивается
+                        "%" + key.toLowerCase() + "%", //% мне все равно как начинается/как заканчивается
                         fromPrice,
                         toPrice,
                         fromAmount,
                         toAmount
                 );
         model.addAttribute("tovary", items);
-
         return "search";
     }
 }
