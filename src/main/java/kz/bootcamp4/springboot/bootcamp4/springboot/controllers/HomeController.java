@@ -5,6 +5,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import kz.bootcamp4.springboot.bootcamp4.springboot.db.Item;
 import kz.bootcamp4.springboot.bootcamp4.springboot.model.ShopItem;
 import kz.bootcamp4.springboot.bootcamp4.springboot.repository.ItemRepository;
+import kz.bootcamp4.springboot.bootcamp4.springboot.repository.ManufacturerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,6 +17,9 @@ public class HomeController {
 
     @Autowired
     private ItemRepository itemRepository; //мы подтянули свой repository
+
+    @Autowired
+    private ManufacturerRepository manufacturerRepository;
 
     @GetMapping(value = "/")
     public String index(Model model) {
@@ -29,6 +33,7 @@ public class HomeController {
 
     @GetMapping(value="/additem")
     public String addItem(Model model) {
+        model.addAttribute("manufacturers", manufacturerRepository.findAll());
         return "addItem";
     }
     @PostMapping(value="/add-item-v3")

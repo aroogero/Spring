@@ -42,6 +42,21 @@
                 </div>
                 <div class="row mt-3">
                     <div class="col-12">
+                        <label>MANUFACTURER : </label>
+                    </div>
+                </div>
+                <div class="row mt-2">
+                    <div class="col-12">
+                        <!-- manufacturer.id - для того чтобы получить даные в виде объекта. Мы напрямую обращаемся к его id - то есть указали путь - -->
+                        <!--Мы в HomeController-e в методе add-item-v3 принимаем в виде объекта. А manufacturer написали точь в точь как объявляли в сущности ShopItem-->
+                        <select class="form-select" name="manufacturer.id">
+                            <option th:each="man: ${manufacturers}"
+                                    th:value="${man.id}" th:text="${man.name + ' / ' + man.country}"></option>
+                        </select>
+                    </div>
+                </div>
+                <div class="row mt-3">
+                    <div class="col-12">
                         <label>DESCRIPTION : </label>
                     </div>
                 </div>
