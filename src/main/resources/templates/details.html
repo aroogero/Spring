@@ -11,12 +11,16 @@
                         <table class="table" th:if="${tovar!=null}">
                             <tbody>
                             <tr th:each="mar:${tovar.markets}">
-                                <td th:text="${mar.name + ' - ' + mar.address}"></td>
-                                <td>
-                                    <button class="btn btn-danger btn-sm">
-                                        >>>
-                                    </button>
-                                </td>
+                                <form th:action="@{'/remove-market'}" method="post">
+                                    <input type="hidden" name="market_id" th:value="${mar.id}">
+                                    <input type="hidden" name="item_id" th:value="${tovar.id}">
+                                    <td th:text="${mar.name + ' - ' + mar.address}"></td>
+                                    <td>
+                                        <button class="btn btn-danger btn-sm">
+                                            >>>
+                                        </button>
+                                    </td>
+                                </form>
                             </tr>
                             </tbody>
                         </table>

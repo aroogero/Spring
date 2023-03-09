@@ -155,4 +155,16 @@ public class HomeController {
         itemRepository.save(item);
         return "redirect:/details/"+item.getId()+"/"+item.getLink()+".html";
     }
+
+    @PostMapping(value = "/remove-market")
+    public String removeMarket(@RequestParam(name = "market_id") Long marketId,
+                               @RequestParam(name = "item_id") Long itemId) {
+
+        ShopMarket market = marketRepository.findById(marketId).orElseThrow();
+        ShopItem item = itemRepository.findById(itemId).orElseThrow();
+
+        item.getMarkets().remove(market); //ты вытащил объект, оттуда вытащил пульку и обратно положил
+        itemRepository.save(item); //и сохранил
+        return "redirect:/details/"+item.getId()+"/"+item.getLink()+".html";
+    }
 }
