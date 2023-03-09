@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.List;
+
 @Entity //сущность. сразу поймет что это база данных
 @Table(name = "t_items") //как в базе должна называться таблица - говорим в sql-е ты так должна будешь называться
 @Getter
@@ -35,5 +37,6 @@ public class ShopItem {  //а в нашем классе он будет наз�
     @ManyToOne  //мы говорим внутри тебя будет объект manufacturer
     private Manufacturer manufacturer; //обязательно должен быть сущностью тэйблом
 
-    //и в homecontroller-e когда делаем findAll - ShopItem в упакованном виде приходит
+    @ManyToMany
+    private List<ShopMarket> markets;
 }
