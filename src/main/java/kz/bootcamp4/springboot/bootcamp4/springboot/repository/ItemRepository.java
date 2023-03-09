@@ -10,29 +10,48 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-@Transactional //работает так, что каждая транзакция не будет скрещиваться с другой транзакцией
+@Transactional
 public interface ItemRepository extends JpaRepository<ShopItem, Long> {
-    List<ShopItem> findAllByNameContaining(String name); //по названию метода он делает поиск Select where like
+    List<ShopItem> findAllByNameContaining(String name);
     List<ShopItem> findAllByNameContainingAndPriceBetweenAndAmountBetweenOrderByPriceDesc(
             String name, double fromPrice, double toPrice, int fromAmount, int toAmount
-    ); //очень крутая технология - максимальное абстрагирование. Спринг Дата сам за нас сделает
-//наверху - вот этот чувак делает то же, самое что и этот - внизу
-    //у вверхнего имплементация быстрая. А у нижнего вручную вмешиваешься
-    @Query(value = "" +    //гибрид SQL-a и ORM-a - пишем запрос средний между этими двумя - указываем сущность
+    );
+
+    List<ShopItem> findAllByNameContainingAndPriceBetweenAndAmountBetweenAndManufacturerIdOrderByPriceDesc(
+            String name, double fromPrice, double toPrice, int fromAmount, int toAmount, Long manufacturerId
+    );
+
+    @Query(value = "" +
             "SELECT it FROM ShopItem it " +
             "WHERE it.name LIKE :nazvanie " +
             "AND it.price >= :otCena AND it.price <= :doCena " +
             "AND it.amount >= :otKolvo AND it.amount <= :doKolvo " +
             "ORDER BY it.price DESC")
     List<ShopItem> poisk(
-            @Param("nazvanie") String name, //как RequestParam
+            @Param("nazvanie") String name,
             @Param("otCena") double fromPrice,
             @Param("doCena") double toPrice,
             @Param("otKolvo") int fromAmount,
             @Param("doKolvo") int toAmount
     );
 
-    @Query(value = "SELECT SUM(it.price) FROM ShopItem it") //запрос в SQL
-    double sumOfPrices();  //возвращает сумму всех
+    @Query(value = "" +
+            "SELECT it FROM ShopItem it " +
+            "WHERE it.name LIKE :nazvanie " +
+            "AND it.price BETWEEN :otCena AND :doCena " +
+            "AND it.amount BETWEEN :otKolvo AND :doKolvo " +
+            "AND it.manufacturer.id = :manufacturerId " +
+            "ORDER BY it.price DESC")
+    List<ShopItem> poiskWithManufacturer(
+            @Param("nazvanie") String name,
+            @Param("otCena") double fromPrice,
+            @Param("doCena") double toPrice,
+            @Param("otKolvo") int fromAmount,
+            @Param("doKolvo") int toAmount,
+            @Param("manufacturerId") Long manufacturerId
+    );
+
+    @Query(value = "SELECT SUM(it.price) FROM ShopItem it")
+    double sumOfPrices();
 }
 

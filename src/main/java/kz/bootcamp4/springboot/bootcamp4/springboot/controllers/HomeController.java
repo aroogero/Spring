@@ -103,18 +103,33 @@ public class HomeController {
             @RequestParam(name = "to_price", required = false, defaultValue = Double.MAX_VALUE + "") double toPrice,
             @RequestParam(name = "from_amount", required = false, defaultValue = "0") int fromAmount,
             @RequestParam(name = "to_amount", required = false, defaultValue = Integer.MAX_VALUE + "") int toAmount,
+            @RequestParam(name = "manufacturer_id", required = false, defaultValue = "0") Long manufacturerId,
             Model model
     ) {
+        if (manufacturerId != null && manufacturerId != 0L) {
+            List<ShopItem> items =
+                    itemRepository.poiskWithManufacturer(
+                            "%" + key.toLowerCase() + "%",
+                            fromPrice,
+                            toPrice,
+                            fromAmount,
+                            toAmount,
+                            manufacturerId
+                    );
+            model.addAttribute("tovary", items);
+        } else {
+            List<ShopItem> items =
+                    itemRepository.poisk(
+                            "%" + key.toLowerCase() + "%",
+                            fromPrice,
+                            toPrice,
+                            fromAmount,
+                            toAmount
+                    );
+            model.addAttribute("tovary", items);
+        }
 
-        List<ShopItem> items =
-                itemRepository.poisk(
-                        "%" + key.toLowerCase() + "%", //% мне все равно как начинается/как заканчивается
-                        fromPrice,
-                        toPrice,
-                        fromAmount,
-                        toAmount
-                );
-        model.addAttribute("tovary", items);
+        model.addAttribute("manufacturers", manufacturerRepository.findAll());
         return "search";
     }
 }

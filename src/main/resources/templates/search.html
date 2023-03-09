@@ -11,56 +11,81 @@
             <div class="col-2">
               <label>NAME : </label>
               </div>
-            <div class="col-2">
-              <label>PRICE FROM: </label>
+            <div class="col-3">
+              <div class="row">
+                <div class="col-6">
+                  <label>PRICE FROM: </label>
+                </div>
+                <div class="col-6">
+                  <label>PRICE TO: </label>
+                </div>
+              </div>
             </div>
-            <div class="col-2">
-              <label>PRICE TO: </label>
+            <div class="col-3">
+              <div class="row">
+                <div class="col-6">
+                  <label>AMOUNT FROM: </label>
+                </div>
+                <div class="col-6">
+                  <label>AMOUNT TO: </label>
+                </div>
+              </div>
             </div>
-            <div class="col-2">
-              <label>AMOUNT FROM : </label>
+            <div class="col-3">
+              <label>MANUFACTURER : </label>
             </div>
-            <div class="col-2">
-              <label>AMOUNT TO: </label>
+            <div class="col-1">
             </div>
           </div>
           <div class="row mt-2">
             <div class="col-2">
-              <input type="search" class="form-control" name="key" th:value="${param.key!=null?param.key:''}" placeholder="Search">
+              <input type="search" class="form-control" name="key"
+                     min="0"
+                     th:value="${param.key!=null?param.key:''}"
+                     placeholder="Search">
             </div>
-          <div class="col-4">
-            <div class="row">
-              <div class="col-6">
-                <input type="number"
-                       th:value="${param.from_price!=null?param.from_price:''}"
-                       min="0" step="0"
-                       class="form-control" name="from_price">
-            </div>
-              <div class="col-6">
-                <input type="number"
-                       th:value="${param.to_price!=null?param.to_price:''}"
-                       min="0" step="0"
-                       class="form-control" name="to_price">
-              </div>
-            </div>
-          </div>
-            <div class="col-4">
+            <div class="col-3">
               <div class="row">
                 <div class="col-6">
                   <input type="number"
-                         th:value="${param.from_amount!=null?param.from_amount:''}"
+                         th:value="${param.from_price!=null?param.from_price:''}"
                          min="0" step="0"
-                         class="form-control" name="from_amount">
+                         class="form-control" name="from_price">
                 </div>
                 <div class="col-6">
                   <input type="number"
-                         th:value="${param.to_amount!=null?param.to_amount:''}"
+                         th:value="${param.to_price!=null?param.to_price:''}"
                          min="0" step="0"
-                         class="form-control" name="to_amount">
+                         class="form-control" name="to_price">
                 </div>
               </div>
             </div>
-          <div class="col-2">
+          <div class="col-3">
+            <div class="row">
+              <div class="col-6">
+                <input type="number"
+                       th:value="${param.from_amount!=null?param.from_amount:''}"
+                       min="0" step="0"
+                       class="form-control" name="from_amount">
+              </div>
+              <div class="col-6">
+                <input type="number"
+                       th:value="${param.to_amount!=null?param.to_amount:''}"
+                       min="0" step="0"
+                       class="form-control" name="to_amount">
+              </div>
+            </div>
+          </div>
+            <div class="col-3">
+              <select class="form-select" name="manufacturer_id">
+                <option value="0">All Manufacturers</option>
+                <option th:each="man: ${manufacturers}"
+                        th:value="${man.id}"
+                        th:text="${man.name + ' / ' + man.country}"
+                ></option>
+              </select>
+            </div>
+          <div class="col-1">
             <button class="btn btn-success">SEARCH</button>
           </div>
           </div>
