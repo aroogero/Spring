@@ -5,17 +5,32 @@
 <div layout:fragment="mainContent">
     <div class="container">
         <div class="row mt-3">
-            <div class="col-6">
-                <table class="table table-striped" th:if="${tovar!=null}">
-                    <tbody>
-                    <tr th:each="mar:${tovar.markets}">
-                        <td th:text="${mar.name + ' - ' + mar.address}"></td>
-                    </tr>
-                    </tbody>
-                </table>
-            </div>
-            <div class="col-6">
-
+            <div class="col-8 mx-auto">
+                <div class="row">
+                    <div class="col-6">
+                        <table class="table" th:if="${tovar!=null}">
+                            <tbody>
+                            <tr th:each="mar:${tovar.markets}">
+                                <td th:text="${mar.name + ' - ' + mar.address}"></td>
+                                <td>
+                                    <button class="btn btn-danger btn-sm">
+                                        >>>
+                                    </button>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="col-6">
+                        <table class="table">
+                            <tbody>
+                            <tr th:each="mar:${markets}">
+                                <td th:text="${mar.name + ' - ' + mar.address}"></td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
             </div>
         </div>
         <div class="row mt-3">

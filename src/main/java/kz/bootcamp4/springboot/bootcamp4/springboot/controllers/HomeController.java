@@ -6,6 +6,7 @@ import kz.bootcamp4.springboot.bootcamp4.springboot.db.Item;
 import kz.bootcamp4.springboot.bootcamp4.springboot.model.ShopItem;
 import kz.bootcamp4.springboot.bootcamp4.springboot.repository.ItemRepository;
 import kz.bootcamp4.springboot.bootcamp4.springboot.repository.ManufacturerRepository;
+import kz.bootcamp4.springboot.bootcamp4.springboot.repository.MarketRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -21,6 +22,9 @@ public class HomeController {
 
     @Autowired
     private ManufacturerRepository manufacturerRepository;
+
+    @Autowired
+    private MarketRepository marketRepository;
 
     @GetMapping(value = "/")
     public String index(Model model) {
@@ -70,6 +74,7 @@ public class HomeController {
         ShopItem shopItem = itemRepository.findById(id).get();
         model.addAttribute("tovar", shopItem);
         model.addAttribute("manufacturers", manufacturerRepository.findAll());
+        model.addAttribute("markets", marketRepository.findAll());
         return "details";
     }
 
