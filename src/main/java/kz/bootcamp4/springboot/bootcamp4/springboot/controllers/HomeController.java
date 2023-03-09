@@ -150,9 +150,10 @@ public class HomeController {
 
         ShopMarket market = marketRepository.findById(marketId).orElseThrow();
         ShopItem item = itemRepository.findById(itemId).orElseThrow();
-
-        item.getMarkets().add(market);
-        itemRepository.save(item);
+        if(!item.getMarkets().contains(market)) { //чтобы маркет не дублировался
+            item.getMarkets().add(market);
+            itemRepository.save(item);
+        }
         return "redirect:/details/"+item.getId()+"/"+item.getLink()+".html";
     }
 
