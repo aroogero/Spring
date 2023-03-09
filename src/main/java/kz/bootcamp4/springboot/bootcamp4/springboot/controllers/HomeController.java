@@ -4,6 +4,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import kz.bootcamp4.springboot.bootcamp4.springboot.db.Item;
 import kz.bootcamp4.springboot.bootcamp4.springboot.model.ShopItem;
+import kz.bootcamp4.springboot.bootcamp4.springboot.model.ShopMarket;
 import kz.bootcamp4.springboot.bootcamp4.springboot.repository.ItemRepository;
 import kz.bootcamp4.springboot.bootcamp4.springboot.repository.ManufacturerRepository;
 import kz.bootcamp4.springboot.bootcamp4.springboot.repository.MarketRepository;
@@ -74,7 +75,11 @@ public class HomeController {
         ShopItem shopItem = itemRepository.findById(id).get();
         model.addAttribute("tovar", shopItem);
         model.addAttribute("manufacturers", manufacturerRepository.findAll());
-        model.addAttribute("markets", marketRepository.findAll());
+        List < ShopMarket> markets = marketRepository.findAll();  //это для того чтобы передавать список без тех что есть на левой стороне details markets
+        if (shopItem != null) {
+            markets.removeAll(shopItem.getMarkets());
+        }
+        model.addAttribute("markets", markets);
         return "details";
     }
 

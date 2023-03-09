@@ -25,6 +25,11 @@
                         <table class="table">
                             <tbody>
                             <tr th:each="mar:${markets}">
+                                <td>
+                                    <button class="btn btn-success btn-sm">
+                                        <<<
+                                    </button>
+                                </td>
                                 <td th:text="${mar.name + ' - ' + mar.address}"></td>
                             </tr>
                             </tbody>
