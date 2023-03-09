@@ -25,12 +25,17 @@
                         <table class="table">
                             <tbody>
                             <tr th:each="mar:${markets}">
-                                <td>
-                                    <button class="btn btn-success btn-sm">
-                                        <<<
-                                    </button>
-                                </td>
-                                <td th:text="${mar.name + ' - ' + mar.address}"></td>
+                                <!--чтобы в таблицу t_items_markets (ManyToMany) что-то добавить, мы должны только 2 параметра передать: id самого товара и id самого маркета-->
+                                <form th:action="@{'/assign-market'}" method="post">
+                                    <input type="hidden" name="market_id" th:value="${mar.id}">
+                                    <input type="hidden" name="item_id" th:value="${tovar.id}">
+                                    <td>
+                                        <button class="btn btn-success btn-sm">
+                                            <<<
+                                        </button>
+                                    </td>
+                                    <td th:text="${mar.name + ' - ' + mar.address}"></td>
+                                </form>
                             </tr>
                             </tbody>
                         </table>

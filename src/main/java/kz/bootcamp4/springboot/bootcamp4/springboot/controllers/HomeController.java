@@ -75,7 +75,7 @@ public class HomeController {
         ShopItem shopItem = itemRepository.findById(id).get();
         model.addAttribute("tovar", shopItem);
         model.addAttribute("manufacturers", manufacturerRepository.findAll());
-        List < ShopMarket> markets = marketRepository.findAll();  //это для того чтобы передавать список без тех что есть на левой стороне details markets
+        List<ShopMarket> markets = marketRepository.findAll();  //это для того чтобы передавать список без тех что есть на левой стороне details markets
         if (shopItem != null) {
             markets.removeAll(shopItem.getMarkets());
         }
@@ -141,5 +141,18 @@ public class HomeController {
 
         model.addAttribute("manufacturers", manufacturerRepository.findAll());
         return "search";
+    }
+
+    @PostMapping(value = "/assign-market")
+    //у таблицы ManyToMany нет сущности - это таблица которая связывает 2 сущностей, поэтому передаем данные вот так
+    public String assignMarket(@RequestParam(name = "market_id") Long marketId,
+                               @RequestParam(name = "item_id") Long itemId) {
+
+        ShopMarket market = marketRepository.findById(marketId).orElseThrow();
+        ShopItem item = itemRepository.findById(itemId).orElseThrow();
+
+        item.getMarkets().add(market);
+        itemRepository.save(item);
+        return "redirect:/details/"+item.getId()+"/"+item.getLink()+".html";
     }
 }
