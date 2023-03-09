@@ -82,7 +82,8 @@
                 <option th:each="man: ${manufacturers}"
                         th:value="${man.id}"
                         th:text="${man.name + ' / ' + man.country}"
-                ></option>
+                        th:selected="${param.manufacturer_id != null && man.id + '' == param.manufacturer_id + ''}"><!-- как два стринга сравниваем - потому что из парама приходит стринг, а наш man.id - это Лонг-->
+                </option>
               </select>
             </div>
           <div class="col-1">
