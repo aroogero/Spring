@@ -7,18 +7,18 @@
             <div class="row mt-3">
                 <div class="col-12">
                     <h4 class="text-center">
-                        <span>TOTAL : </span>
+                        <span><span th:text="#{label.total}"></span> : </span>
                         <span class="text-success" th:text="${total}"></span>KZT
                     </h4>
                     <table class="table table-striped mt-3">
                         <thead>
                         <tr>
                             <th>ID</th>
-                            <th>NAME</th>
-                            <th>PRICE</th>
-                            <th>AMOUNT</th>
-                            <th>MANUFACTURER</th>
-                            <th style="width:10%;">DETAILS</th>
+                            <th th:text="#{table.name}"></th>
+                            <th th:text="#{table.price}"></th>
+                            <th th:text="#{table.amount}"></th>
+                            <th th:text="#{table.manufacturer}"></th>
+                            <th style="width:10%;" th:text="#{table.details}"></th>
                         </tr>
                         </thead>
                         <tbody>
@@ -29,7 +29,8 @@
                             <td th:text="${tov.amount}"></td>
                             <td th:text="${tov.manufacturer.name + ' - ' + tov.manufacturer.country}"></td>
                             <td>
-                                <a th:href="@{'/details/' + ${tov.id} + '/' + ${tov.link} + '.html'}" class="btn btn-primary btn-sm">DETAILS</a>
+                                <a th:href="@{'/details/' + ${tov.id} + '/' + ${tov.link} + '.html'}"
+                                   class="btn btn-primary btn-sm" th:text="#{table.details}"></a>
                             </td>
                         </tr>
                         </tbody>
