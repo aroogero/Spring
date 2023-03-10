@@ -23,4 +23,10 @@ public class ItemServiceImpl implements ItemService {
     public double sumOfPrices() {
         return itemRepository.sumOfPrices();
     }
+
+    @Override
+    public ShopItem addItem(ShopItem item) {
+        item.setLink(item.getName().toLowerCase().replace(' ', '-'));
+       return  itemRepository.save(item);
+    }
 }

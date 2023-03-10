@@ -46,8 +46,7 @@ public class HomeController {
 
     @PostMapping(value = "/add-item-v3")
     public String addItemByObject(ShopItem item) {
-        item.setLink(item.getName().toLowerCase().replace(' ', '-'));
-        itemRepository.save(item);
+        itemService.addItem(item);
         return "redirect:/additem?success";
     }
 

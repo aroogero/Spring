@@ -8,4 +8,5 @@ public interface ItemService {
 
     List<ShopItem> getItems();
     double sumOfPrices();
+    ShopItem addItem(ShopItem item);
 }
