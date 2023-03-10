@@ -9,6 +9,7 @@ import kz.bootcamp4.springboot.bootcamp4.springboot.repository.ItemRepository;
 import kz.bootcamp4.springboot.bootcamp4.springboot.repository.ManufacturerRepository;
 import kz.bootcamp4.springboot.bootcamp4.springboot.repository.MarketRepository;
 import kz.bootcamp4.springboot.bootcamp4.springboot.service.ItemService;
+import kz.bootcamp4.springboot.bootcamp4.springboot.service.ManufacturerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -30,6 +31,9 @@ public class HomeController {
     @Autowired
     private ItemService itemService;
 
+    @Autowired
+    private ManufacturerService manufacturerService;
+
     @GetMapping(value = "/")
     public String index(Model model) {
 
@@ -40,7 +44,7 @@ public class HomeController {
 
     @GetMapping(value = "/additem")
     public String addItem(Model model) {
-        model.addAttribute("manufacturers", manufacturerRepository.findAll());
+        model.addAttribute("manufacturers", manufacturerService.getManufacturers());
         return "addItem";
     }
 
