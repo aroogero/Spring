@@ -1,8 +1,10 @@
 package kz.bootcamp4.springboot.bootcamp4.springboot.service.impl;
 
 import kz.bootcamp4.springboot.bootcamp4.springboot.model.ShopItem;
+import kz.bootcamp4.springboot.bootcamp4.springboot.model.ShopMarket;
 import kz.bootcamp4.springboot.bootcamp4.springboot.repository.ItemRepository;
 import kz.bootcamp4.springboot.bootcamp4.springboot.service.ItemService;
+import kz.bootcamp4.springboot.bootcamp4.springboot.service.MarketService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,6 +15,9 @@ public class ItemServiceImpl implements ItemService {
 
     @Autowired
     private ItemRepository itemRepository;
+
+    @Autowired //сервис может вызывать другой сервис
+    private MarketService marketService;
 
     @Override
     public List<ShopItem> getItems() {
@@ -81,5 +86,17 @@ public class ItemServiceImpl implements ItemService {
                     );
         }
         return items;
+    }
+
+    @Override
+    public ShopItem assignMarket(Long marketId, Long itemId) {
+        ShopMarket market = marketService.getMarket(marketId);
+        ShopItem item = getItem(itemId);
+
+        if (!item.getMarkets().contains(market)) {
+            item.getMarkets().add(market);
+            item = itemRepository.save(item);
+        }
+        return item;
     }
 }

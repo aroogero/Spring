@@ -122,12 +122,7 @@ public class HomeController {
     public String assignMarket(@RequestParam(name = "market_id") Long marketId,
                                @RequestParam(name = "item_id") Long itemId) {
 
-        ShopMarket market = marketRepository.findById(marketId).orElseThrow();
-        ShopItem item = itemRepository.findById(itemId).orElseThrow();
-        if (!item.getMarkets().contains(market)) { //чтобы маркет не дублировался
-            item.getMarkets().add(market);
-            itemRepository.save(item);
-        }
+       ShopItem item = itemService.assignMarket(marketId, itemId);
         return "redirect:/details/" + item.getId() + "/" + item.getLink() + ".html";
     }
 

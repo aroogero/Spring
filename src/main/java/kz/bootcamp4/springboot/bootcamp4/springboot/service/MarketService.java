@@ -8,5 +8,5 @@ import java.util.List;
 public interface MarketService {
     List<ShopMarket> getMarkets();
     List<ShopMarket> getAvailableMarkets(ShopItem item ); //дать всевозможные markets
-
+    ShopMarket getMarket(Long id); //возвращает 1 объект
 }

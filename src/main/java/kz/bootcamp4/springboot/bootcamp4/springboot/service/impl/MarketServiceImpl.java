@@ -26,4 +26,9 @@ public class MarketServiceImpl implements MarketService {
         }
         return markets;
     }
+
+    @Override
+    public ShopMarket getMarket(Long id) {
+        return marketRepository.findById(id).orElse(null);
+    }
 }
