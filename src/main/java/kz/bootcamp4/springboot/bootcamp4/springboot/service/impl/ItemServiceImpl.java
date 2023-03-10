@@ -29,4 +29,9 @@ public class ItemServiceImpl implements ItemService {
         item.setLink(item.getName().toLowerCase().replace(' ', '-'));
        return  itemRepository.save(item);
     }
+
+    @Override
+    public ShopItem getItem(Long id) {
+        return itemRepository.findById(id).orElse(null);
+    }
 }

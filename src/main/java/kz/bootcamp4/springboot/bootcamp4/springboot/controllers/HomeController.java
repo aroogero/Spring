@@ -10,6 +10,7 @@ import kz.bootcamp4.springboot.bootcamp4.springboot.repository.ManufacturerRepos
 import kz.bootcamp4.springboot.bootcamp4.springboot.repository.MarketRepository;
 import kz.bootcamp4.springboot.bootcamp4.springboot.service.ItemService;
 import kz.bootcamp4.springboot.bootcamp4.springboot.service.ManufacturerService;
+import kz.bootcamp4.springboot.bootcamp4.springboot.service.MarketService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -33,6 +34,8 @@ public class HomeController {
 
     @Autowired
     private ManufacturerService manufacturerService;
+    @Autowired
+    private MarketService marketService;
 
     @GetMapping(value = "/")
     public String index(Model model) {
@@ -75,16 +78,12 @@ public class HomeController {
 
     @GetMapping(value = "/details/{id}/{link}.html")
     public String detailsView(@PathVariable(name = "id") Long id,
-                              @PathVariable(name = "link") String link, //Этот link в этом случае никакую роль не играет. Мы все равно по id будем считывать
+                              @PathVariable(name = "link") String link,
                               Model model) {
-        ShopItem shopItem = itemRepository.findById(id).get();
+        ShopItem shopItem = itemService.getItem(id);
         model.addAttribute("tovar", shopItem);
-        model.addAttribute("manufacturers", manufacturerRepository.findAll());
-        List<ShopMarket> markets = marketRepository.findAll();  //это для того чтобы передавать список без тех что есть на левой стороне details markets
-        if (shopItem != null) {
-            markets.removeAll(shopItem.getMarkets());
-        }
-        model.addAttribute("markets", markets);
+        model.addAttribute("manufacturers", manufacturerService.getManufacturers());
+        model.addAttribute("markets", marketService.getAvailableMarkets(shopItem));
         return "details";
     }
 
