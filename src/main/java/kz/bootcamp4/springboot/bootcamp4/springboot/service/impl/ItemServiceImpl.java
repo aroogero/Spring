@@ -56,4 +56,30 @@ public class ItemServiceImpl implements ItemService {
         ShopItem item = getItem(id);
         itemRepository.delete(item); //Удаляем по объекту. если через айди будем удалять, то выйдет ошибка если туда попадет несуществующий айди
     }
+
+    @Override
+    public List<ShopItem> search(String key, double fromPrice, double toPrice, int fromAmount, int toAmount, Long manufacturerId) {
+        List<ShopItem> items;
+        if (manufacturerId != null && manufacturerId != 0L) {
+            items =
+                    itemRepository.poiskWithManufacturer(
+                            "%" + key.toLowerCase() + "%",
+                            fromPrice,
+                            toPrice,
+                            fromAmount,
+                            toAmount,
+                            manufacturerId
+                    );
+        } else {
+            items =
+                    itemRepository.poisk(
+                            "%" + key.toLowerCase() + "%",
+                            fromPrice,
+                            toPrice,
+                            fromAmount,
+                            toAmount
+                    );
+        }
+        return items;
+    }
 }

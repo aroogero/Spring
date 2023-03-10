@@ -112,30 +112,8 @@ public class HomeController {
             @RequestParam(name = "manufacturer_id", required = false, defaultValue = "0") Long manufacturerId,
             Model model
     ) {
-        if (manufacturerId != null && manufacturerId != 0L) {
-            List<ShopItem> items =
-                    itemRepository.poiskWithManufacturer(
-                            "%" + key.toLowerCase() + "%",
-                            fromPrice,
-                            toPrice,
-                            fromAmount,
-                            toAmount,
-                            manufacturerId
-                    );
-            model.addAttribute("tovary", items);
-        } else {
-            List<ShopItem> items =
-                    itemRepository.poisk(
-                            "%" + key.toLowerCase() + "%",
-                            fromPrice,
-                            toPrice,
-                            fromAmount,
-                            toAmount
-                    );
-            model.addAttribute("tovary", items);
-        }
-
-        model.addAttribute("manufacturers", manufacturerRepository.findAll());
+        model.addAttribute("tovary", itemService.search(key, fromPrice, toPrice, fromAmount, toAmount, manufacturerId));
+        model.addAttribute("manufacturers",manufacturerService.getManufacturers());
         return "search";
     }
 

@@ -17,4 +17,6 @@ public interface ItemService {
     ShopItem updateItem(ShopItem item);
 
     void deleteItem(Long id);
+
+    List<ShopItem> search(String key, double fromPrice, double toPrice, int fromAmount, int toAmount, Long manufacturerId);
 }
