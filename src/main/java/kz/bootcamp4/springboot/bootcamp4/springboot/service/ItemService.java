@@ -15,4 +15,6 @@ public interface ItemService {
     ShopItem getItem(Long id);
 
     ShopItem updateItem(ShopItem item);
+
+    void deleteItem(Long id);
 }

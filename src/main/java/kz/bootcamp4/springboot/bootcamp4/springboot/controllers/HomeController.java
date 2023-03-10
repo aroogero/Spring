@@ -98,7 +98,7 @@ public class HomeController {
 
     @PostMapping(value = "/delete-item")
     public String deleteItem(@RequestParam(name = "id") Long id) {
-        itemRepository.deleteById(id);
+        itemService.deleteItem(id);
         return "redirect:/";
     }
 

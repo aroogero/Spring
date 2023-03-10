@@ -50,4 +50,10 @@ public class ItemServiceImpl implements ItemService {
         }
         return oldItem;
     }
+
+    @Override
+    public void deleteItem(Long id) {
+        ShopItem item = getItem(id);
+        itemRepository.delete(item); //Удаляем по объекту. если через айди будем удалять, то выйдет ошибка если туда попадет несуществующий айди
+    }
 }
