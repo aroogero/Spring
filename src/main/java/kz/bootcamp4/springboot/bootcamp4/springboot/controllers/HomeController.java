@@ -8,6 +8,7 @@ import kz.bootcamp4.springboot.bootcamp4.springboot.model.ShopMarket;
 import kz.bootcamp4.springboot.bootcamp4.springboot.repository.ItemRepository;
 import kz.bootcamp4.springboot.bootcamp4.springboot.repository.ManufacturerRepository;
 import kz.bootcamp4.springboot.bootcamp4.springboot.repository.MarketRepository;
+import kz.bootcamp4.springboot.bootcamp4.springboot.service.ItemService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -26,13 +27,14 @@ public class HomeController {
 
     @Autowired
     private MarketRepository marketRepository;
+    @Autowired
+    private ItemService itemService;
 
     @GetMapping(value = "/")
     public String index(Model model) {
 
-        List<ShopItem> items = itemRepository.findAll();//List - это интерфейс ArrayList-а, более абстрактная версия
-        model.addAttribute("tovary", items);
-        model.addAttribute("total", itemRepository.sumOfPrices());
+        model.addAttribute("tovary", itemService.getItems());
+        model.addAttribute("total", itemService.sumOfPrices());
         return "indexPage";
     }
 

@@ -16,3 +16,4 @@ public class ShopMarket {
     private String name;
     private String address;
 }
+
