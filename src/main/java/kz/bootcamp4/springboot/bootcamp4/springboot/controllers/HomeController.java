@@ -89,17 +89,9 @@ public class HomeController {
 
     @PostMapping(value = "/update-item")
     public String updateItem(ShopItem item) {
-        ShopItem oldItem = itemRepository.findById(item.getId()).orElse(null); //если в форме мы ничего не передаем, значение будет пустым, поэтому id получаем отдельно
-        if (oldItem != null) {
-            oldItem.setName(item.getName());
-            oldItem.setAmount(item.getAmount());
-            oldItem.setPrice(item.getPrice());
-            oldItem.setDescription(item.getDescription());
-            oldItem.setLink(item.getName().toLowerCase().replace(' ', '-'));
-            oldItem.setManufacturer(item.getManufacturer()); //он сам по id подгонит
-            //мы могли все это через save сделать, но написали ради link-a - чтобы переписать ее
-            itemRepository.save(oldItem);
-            return "redirect:/details/" + oldItem.getId() + "/" + oldItem.getLink() + ".html";
+        item = itemService.updateItem(item);
+        if (item != null) {
+            return "redirect:/details/" + item.getId() + "/" + item.getLink() + ".html";
         }
         return "redirect:/";
     }
@@ -154,11 +146,11 @@ public class HomeController {
 
         ShopMarket market = marketRepository.findById(marketId).orElseThrow();
         ShopItem item = itemRepository.findById(itemId).orElseThrow();
-        if(!item.getMarkets().contains(market)) { //чтобы маркет не дублировался
+        if (!item.getMarkets().contains(market)) { //чтобы маркет не дублировался
             item.getMarkets().add(market);
             itemRepository.save(item);
         }
-        return "redirect:/details/"+item.getId()+"/"+item.getLink()+".html";
+        return "redirect:/details/" + item.getId() + "/" + item.getLink() + ".html";
     }
 
     @PostMapping(value = "/remove-market")
@@ -170,6 +162,6 @@ public class HomeController {
 
         item.getMarkets().remove(market); //ты вытащил объект, оттуда вытащил пульку и обратно положил
         itemRepository.save(item); //и сохранил
-        return "redirect:/details/"+item.getId()+"/"+item.getLink()+".html";
+        return "redirect:/details/" + item.getId() + "/" + item.getLink() + ".html";
     }
 }

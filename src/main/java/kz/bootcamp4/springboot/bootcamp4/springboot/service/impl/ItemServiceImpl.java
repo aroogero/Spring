@@ -13,6 +13,7 @@ public class ItemServiceImpl implements ItemService {
 
     @Autowired
     private ItemRepository itemRepository;
+
     @Override
     public List<ShopItem> getItems() {
 
@@ -27,11 +28,26 @@ public class ItemServiceImpl implements ItemService {
     @Override
     public ShopItem addItem(ShopItem item) {
         item.setLink(item.getName().toLowerCase().replace(' ', '-'));
-       return  itemRepository.save(item);
+        return itemRepository.save(item);
     }
 
     @Override
     public ShopItem getItem(Long id) {
         return itemRepository.findById(id).orElse(null);
+    }
+
+    @Override
+    public ShopItem updateItem(ShopItem item) {
+        ShopItem oldItem = itemRepository.findById(item.getId()).orElse(null); //если в форме мы ничего не передаем, значение будет пустым, поэтому id получаем отдельно
+        if (oldItem != null) {
+            oldItem.setName(item.getName());
+            oldItem.setAmount(item.getAmount());
+            oldItem.setPrice(item.getPrice());
+            oldItem.setDescription(item.getDescription());
+            oldItem.setLink(item.getName().toLowerCase().replace(' ', '-'));
+            oldItem.setManufacturer(item.getManufacturer());
+            oldItem = itemRepository.save(oldItem);
+        }
+        return oldItem;
     }
 }

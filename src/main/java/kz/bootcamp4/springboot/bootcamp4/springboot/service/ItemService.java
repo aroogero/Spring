@@ -7,7 +7,12 @@ import java.util.List;
 public interface ItemService {
 
     List<ShopItem> getItems();
+
     double sumOfPrices();
+
     ShopItem addItem(ShopItem item);
+
     ShopItem getItem(Long id);
+
+    ShopItem updateItem(ShopItem item);
 }
