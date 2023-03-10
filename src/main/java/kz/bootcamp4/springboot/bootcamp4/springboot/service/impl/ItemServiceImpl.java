@@ -99,4 +99,14 @@ public class ItemServiceImpl implements ItemService {
         }
         return item;
     }
+
+    @Override
+    public ShopItem removeMarket(Long marketId, Long itemId) {
+        ShopMarket market = marketService.getMarket(marketId);
+        ShopItem item = getItem(itemId);
+
+        item.getMarkets().remove(market);
+        item = itemRepository.save(item);
+        return item;
+    }
 }

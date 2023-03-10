@@ -19,5 +19,8 @@ public interface ItemService {
     void deleteItem(Long id);
 
     List<ShopItem> search(String key, double fromPrice, double toPrice, int fromAmount, int toAmount, Long manufacturerId);
+
     ShopItem assignMarket(Long marketId, Long itemId);
+
+    ShopItem removeMarket(Long marketId, Long itemId);
 }

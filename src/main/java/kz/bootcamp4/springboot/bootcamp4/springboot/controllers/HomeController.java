@@ -4,7 +4,6 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import kz.bootcamp4.springboot.bootcamp4.springboot.db.Item;
 import kz.bootcamp4.springboot.bootcamp4.springboot.model.ShopItem;
-import kz.bootcamp4.springboot.bootcamp4.springboot.model.ShopMarket;
 import kz.bootcamp4.springboot.bootcamp4.springboot.repository.ItemRepository;
 import kz.bootcamp4.springboot.bootcamp4.springboot.repository.ManufacturerRepository;
 import kz.bootcamp4.springboot.bootcamp4.springboot.repository.MarketRepository;
@@ -16,19 +15,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
 
 @Controller
 public class HomeController {
-
-    @Autowired
-    private ItemRepository itemRepository; //мы подтянули свой repository
-
-    @Autowired
-    private ManufacturerRepository manufacturerRepository;
-
-    @Autowired
-    private MarketRepository marketRepository;
     @Autowired
     private ItemService itemService;
 
@@ -130,11 +119,7 @@ public class HomeController {
     public String removeMarket(@RequestParam(name = "market_id") Long marketId,
                                @RequestParam(name = "item_id") Long itemId) {
 
-        ShopMarket market = marketRepository.findById(marketId).orElseThrow();
-        ShopItem item = itemRepository.findById(itemId).orElseThrow();
-
-        item.getMarkets().remove(market); //ты вытащил объект, оттуда вытащил пульку и обратно положил
-        itemRepository.save(item); //и сохранил
+       ShopItem item = itemService.removeMarket(marketId, itemId);
         return "redirect:/details/" + item.getId() + "/" + item.getLink() + ".html";
     }
 }
